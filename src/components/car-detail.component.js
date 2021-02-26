@@ -18,14 +18,14 @@ export default class CarDetail extends Component {
                 maker: "",
                 model: "",
                 price: 0,
-                creationDate: new Date('1950-01-01')
+                creationDate: new Date()
             },
             message: ""
         };
     }
 
     componentDidMount() {
-        this.getCar(this.props.match.params._id);
+        this.getCar(this.props.match.params.id);
     }
 
     onChangeMaker(e) {
@@ -82,13 +82,13 @@ export default class CarDetail extends Component {
 
     getCar(_id) {
         CarDataService.get(_id)
-            .then(response => {
+            .then(response => { 
                 this.setState({
                     currentCar: response.data
                 });
-                console.log(response.data);
+                console.log('get car done');
             })
-            .catch(e => {
+             .catch(e => {
                 console.log(e);
             });
     }
@@ -99,7 +99,7 @@ export default class CarDetail extends Component {
             this.state.currentCar
         )
             .then(response => {
-                console.log(response.data);
+                console.log('Car updated in car-detail')
                 this.setState({
                     message: "Car Updated Successfully"
                 });
@@ -112,7 +112,7 @@ export default class CarDetail extends Component {
     deleteCar() {
         CarDataService.delete(this.state.currentCar._id)
             .then(response => {
-                console.log(response.data);
+                console.log('Car deleted in car-detail')
                 this.props.history.push('/cars')
             });
     }

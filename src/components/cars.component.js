@@ -47,7 +47,7 @@ export default class Cars extends Component {
                 this.setState({
                     cars: response.data
                 });
-                console.log(response.data);
+                console.log('getCars successfully called from cars.component');
             })
             .catch(e => {
                 console.log(e);
@@ -72,6 +72,7 @@ export default class Cars extends Component {
     searchCar() {
         CarDataService.search(this.state.searchKey, this.state.searchValue)
             .then(response => {
+                console.log(`CAZZO DI RISPOSTA`, response)
                 this.setState({
                     cars: response.data
                 });
@@ -85,13 +86,19 @@ export default class Cars extends Component {
     render() {
         const { searchValue, searchKey, cars, currentCar, currentIndex } = this.state;
 
+
         return (
             <div className="list row">
-                <div className="col-md-8">
+                 <div className="col-md-8">
                     <div className="input-group-mb-3">
                         
                         <label htmlFor="searchKey">Search Key</label>
-                        <select value={searchKey}>
+                        <select 
+                            id="searchKey"
+                            className="form-control"
+                            value={this.state.searchKey}
+                            onChange={this.onChangeSearchKey}>
+                            <option value={null} hidden>Search Field </option>
                             <option value="maker">Maker</option>
                             <option value="model">Model</option>
                         </select>
@@ -117,73 +124,39 @@ export default class Cars extends Component {
                 </div>
 
                 <div className="col-md-6">
+                    
                     <h4>Cars List</h4>
 
+                        <Link to={"/careditor"}>
+                                Add Cars
+                        </Link>
+
                     <ul className="list-group">
-                        {cars && 
-                        cars.map((car, index) => (
-                            <li
-                                className={"list-group-item " + (index === currentIndex ? "active" : "")}
-                                onClick={() => this.setActiveCar(car, index)}
-                                key={index}
-                            >
-                                {car.maker} {car.model} {car.price}
-                            </li>
-                        ))}
+                        
+                        {
+                        (cars.length > 0) &&
+
+                            cars.map((car, index) => (
+                                <li
+                                    className={"list-group-item " + (index === currentIndex ? "active" : "")}
+                                    onClick={() => this.setActiveCar(car, index)}
+                                    key={index}
+                                >
+                                    {car.maker} {car.model} {car.price}
+                                    
+                                <Link
+                                to={`/cars/${car._id}`}
+                                className="badge badge-warning"
+                                >
+                                Edit Car
+                                </Link>
+                                </li>
+                            ))
+                        }
                     </ul>
                 </div>
 
-                <div className="col-md-6">
-                    
-                    {currentCar ? (
-                       
-                       <div>
-                           <h4>Car</h4>
-
-                        <div>
-                            <label>
-                                <strong>Maker:</strong>
-                            </label>{" "}
-                            {currentCar.maker}
-                        </div>
-
-                        <div>
-                            <label>
-                                <strong>Model:</strong>
-                            </label>{" "}
-                            {currentCar.model}
-                        </div>
-
-                        <div>
-                            <label>
-                                <strong>Price:</strong>
-                            </label>{" "}
-                            {currentCar.price}
-                        </div>
-
-                        <div>
-                            <label>
-                                <strong>Creation Date:</strong>
-                            </label>{" "}
-                            {currentCar.creationDate}
-                        </div>
-
-                        <Link
-                            to={"/cars" +currentCar._id}
-                            className="badge badge-warning"
-                        >
-                            Edit Car
-                        </Link>
-                        </div>
-
-                    ) : (
-                        <div>
-                            <br />
-                            <p>Click on a Car</p>
-                        </div>
-                    )}
-                </div>                       
-
+                
             </div>
         );
     }

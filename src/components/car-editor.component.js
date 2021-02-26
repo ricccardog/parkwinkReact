@@ -63,11 +63,12 @@ export default class CarEditor extends Component {
 
                 submitted: true
             });
-            console.log(response.data);
+            console.log('Car Saved in car-editor');
         });
     }
 
     newCar() {
+        console.log('New Car called in car-editor')
         this.setState({
             _id: null,
             maker: "",
