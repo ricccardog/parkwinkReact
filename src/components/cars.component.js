@@ -11,18 +11,26 @@ export default class Cars extends Component {
         this.refreshCars = this.refreshCars.bind(this);
         this.setActiveCar = this.setActiveCar.bind(this);
         this.searchCar = this.searchCar.bind(this);
+        this.onChangeShowSearch = this.onChangeShowSearch.bind(this);
 
         this.state = {
             cars: [],
             currentCar: null,
             currentIndex: -1,
             searchValue: "",
-            searchKey: ""
+            searchKey: "",
+            showSearch: false
         };
     }
 
     componentDidMount() {
         this.getCars();
+    }
+
+    onChangeShowSearch() {
+        this.setState({
+            showSearch: !this.state.showSearch
+        })
     }
 
     onChangeSearchKey(e) {
@@ -72,11 +80,10 @@ export default class Cars extends Component {
     searchCar() {
         CarDataService.search(this.state.searchKey, this.state.searchValue)
             .then(response => {
-                console.log(`CAZZO DI RISPOSTA`, response)
                 this.setState({
                     cars: response.data
                 });
-                console.log(response.data);
+                console.log('car searched');
             })
             .catch(e => {
                 console.log(e);
@@ -84,11 +91,30 @@ export default class Cars extends Component {
     }
 
     render() {
-        const { searchValue, searchKey, cars, currentCar, currentIndex } = this.state;
+        const { searchValue, searchKey, cars, currentCar, currentIndex, showSearch } = this.state;
 
 
         return (
             <div className="list row">
+                
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={this.onChangeShowSearch}
+                >
+                    Show search
+                </button>
+
+                <Link 
+                    to={"/careditor"}
+                    className="btn btn-primary">
+                    Add Cars
+                </Link>
+
+
+                { showSearch ? 
+                
+                (
                  <div className="col-md-8">
                     <div className="input-group-mb-3">
                         
@@ -122,14 +148,20 @@ export default class Cars extends Component {
                         </div>
                     </div>
                 </div>
+                
+                ) : (
+
+                <span></span>
+
+                )
+                
+                }
 
                 <div className="col-md-6">
                     
                     <h4>Cars List</h4>
 
-                        <Link to={"/careditor"}>
-                                Add Cars
-                        </Link>
+                        
 
                     <ul className="list-group">
                         
