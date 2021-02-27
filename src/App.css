@@ -72,7 +72,7 @@
 .content-link {
   float: right;
   margin-right: 5px;
-  color: white;
+  color: black;
   font-weight: bold;
   font-family: Helvetica, sans-serif;
 }
@@ -117,10 +117,20 @@
   width: 40%;
   font-weight: bold;
 }
+/* TABLE STYLES */
 
- 
-.main-list-container {
-  background-color: pink;
+
+table {
+  table-layout: fixed;
+}
+
+.list-table{
+  cursor: pointer;
+}
+
+.edit-popup {
+  float: right;
+  margin-right: 2px;
 }
 
 .outer-container {

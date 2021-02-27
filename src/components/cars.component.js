@@ -184,35 +184,68 @@ export default class Cars extends Component {
                 </div>
 
                 <div>
-                <div classname="main-list-container">
+                <div className="main-list-container">
   
                     <h4>Cars List</h4>
 
-                        
 
-                    <ul /* className="list-group" */>
-                        
-                        {
-                        (cars.length > 0) &&
+                    <div className="table-container">
+                    <table className="table table-hover">
 
-                            cars.map((car, index) => (
-                                <li
-                                    className={"list-group-item " + (index === currentIndex ? "active" : "")}
-                                    onClick={() => this.setActiveCar(car, index)}
-                                    key={index}
-                                >
-                                    {car.maker} {car.model} {car.price}
+                        <thead>
+                            <tr>
+                                <th> # </th>
+                                <th> Maker </th>
+                                <th> Model </th>
+                            </tr>
+                        </thead>
+
+                        
+                        {       
+                            (cars.length > 0) && 
+
+                                cars.map((car, index) => { 
+
+                                    return (
+
+                                    <tbody>
+
+                                        <tr
+                                            onClick={() => this.setActiveCar(car, index)}
+                                            /* className={index === currentIndex ? "selected-table-element" : ""}
+ */
+                                        >
+                                            <td> {cars.indexOf(car) +1 } </td>
+                                            <td> {car.maker} </td>
+                                            <td> {car.model} {index === currentIndex ? (
+                                                
+                                                    <Link
+                                                        to={`/cars/${car._id}`}
+                                                        className="edit-popup"
+                                                    >
+                                                        <button className="btn btn-primary btn-outline">
+                                                            Edit
+                                                        </button>
+                                                        
+                                                    </Link>): ""}</td>
+                                            
+                                        
+                                        </tr>
                                     
-                                <Link
-                                to={`/cars/${car._id}`}
-                                className="badge badge-warning"
-                                >
-                                Edit Car
-                                </Link>
-                                </li>
-                            ))
+                                    </tbody>
+                            
+                                    )
+                                }
+                            
+                            ) 
+                        
                         }
-                    </ul>
+                           
+                        
+                        
+                    </table> 
+                    </div>
+                    
                 </div>
 
                 
