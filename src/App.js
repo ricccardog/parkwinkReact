@@ -13,24 +13,23 @@ class App extends Component {
       <div> {/* outer container */}
 
         <nav className="topNavBar">
-
-          <a href="/">
+        
+          <h4>
+          <a href="/" className="home-link">
             ParkWink
           </a>
+          </h4>
           
-          <div>
-
-            <Link to={"/cars"}>
-              Cars
-            </Link>
+          <h4>
+          <Link to={"/cars"} className="content-link">
+           Cars
+          </Link>
+          </h4>
           
-          </div>
-
         </nav>
 
         <div>
           <Switch>
-        
             <Route exact path={["/", "/cars"]} component={Cars} />
             <Route exact path="/careditor" component={CarEditor} />
             <Route path="/cars/:id" component={CarDetail} />

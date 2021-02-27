@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CarDataService from "../services/car.service";
 import { Link } from "react-router-dom";
+import FilterIcon  from '../assets/filter.svg';
 
 export default class Cars extends Component {
     constructor(props){
@@ -99,58 +100,78 @@ export default class Cars extends Component {
 
 
         return (
-            <div className="list row">
+            <div className="outer-container">
+                {/* _______________________________ TOP SEARCH BUTTONS __________________ */}
+                <div className="navbar-container">
                 
-                <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={this.onChangeShowSearch}
-                >
-                    Show search
-                </button>
+                    <button
+                        type="button"
+                        className="btn btn-light top-menu-buttons"
+                        onClick={this.onChangeShowSearch}
+                    >
+                        <img src={FilterIcon}/>
+                    </button>
 
-                <Link 
-                    to={"/careditor"}
-                    className="btn btn-primary">
-                    Add Cars
-                </Link>
+                    <Link 
+                        to={"/careditor"}
+                    >
+                        <button
+                            type="button"
+                            className="btn btn-primary top-menu-buttons"
+                        >
+                            <strong>+ Add</strong>
+                        </button>
+                    </Link>
 
+                   
 
+                </div>
+                
+                <div className="search-menu-container">
                 { showSearch ? 
                 
                 (
-                 <div className="col-md-8">
-                    <div className="input-group-mb-3">
+                <div>
+                 <div className="filter-inputs">
+                    
+                            <div className="entry">
+                                <label htmlFor="searchKey">Search Key</label>
+                                <select 
+                                    id="searchKey"
+                                    className="form-control"
+                                    value={this.state.searchKey}
+                                    onChange={this.onChangeSearchKey}>
+                                    <option value={null} hidden>Search Field </option>
+                                    <option value="maker">Maker</option>
+                                    <option value="model">Model</option>
+                                </select>
+                            </div>
+
+                            <div className="entry">
+                                <label htmlFor="searchValue">Search Value</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Search Value"
+                                    value={searchValue}
+                                    onChange={this.onChangeSearchValue}
+                                />
+                            </div>
+
+                    
                         
-                        <label htmlFor="searchKey">Search Key</label>
-                        <select 
-                            id="searchKey"
-                            className="form-control"
-                            value={this.state.searchKey}
-                            onChange={this.onChangeSearchKey}>
-                            <option value={null} hidden>Search Field </option>
-                            <option value="maker">Maker</option>
-                            <option value="model">Model</option>
-                        </select>
-
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search Value"
-                            value={searchValue}
-                            onChange={this.onChangeSearchValue}
-                        />
-
-                        <div className="input-group-append">
-                            <button
-                                className="btn btn-outline-secondary"
-                                type="button"
-                                onClick={this.searchCar}
-                            >
-                                Search
-                            </button>
-                        </div>
-                    </div>
+                    
+                </div>
+                <div className="filter-button-container">
+                <button
+                            className="filter-button btn btn-outline-secondary"
+                            type="button"
+                            onClick={this.searchCar}
+                        >
+                            Filter
+                        </button>
+                    
+                </div>
                 </div>
                 
                 ) : (
@@ -160,14 +181,16 @@ export default class Cars extends Component {
                 )
                 
                 }
+                </div>
 
-                <div className="col-md-6">
-                    
+                <div>
+                <div classname="main-list-container">
+  
                     <h4>Cars List</h4>
 
                         
 
-                    <ul className="list-group">
+                    <ul /* className="list-group" */>
                         
                         {
                         (cars.length > 0) &&
@@ -193,6 +216,7 @@ export default class Cars extends Component {
                 </div>
 
                 
+            </div>
             </div>
         );
     }
