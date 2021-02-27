@@ -13,6 +13,8 @@ export default class Cars extends Component {
         this.setActiveCar = this.setActiveCar.bind(this);
         this.searchCar = this.searchCar.bind(this);
         this.onChangeShowSearch = this.onChangeShowSearch.bind(this);
+        this.sortCars = this.sortCars.bind(this);
+        this.onChangeSortOrder = this.onChangeSortOrder.bind(this);
 
         this.state = {
             cars: [],
@@ -20,7 +22,9 @@ export default class Cars extends Component {
             currentIndex: -1,
             searchValue: "",
             searchKey: "",
-            showSearch: false
+            showSearch: false,
+            sortOrder: false,
+            arrow: "-"
         };
     }
 
@@ -47,8 +51,17 @@ export default class Cars extends Component {
 
         this.setState({
             searchValue: searchValue
-        });
+        });  
     }
+
+    onChangeSortOrder() {
+        const sortOrder = !this.state.sortOrder;
+        
+        this.setState({
+            sortOrder: sortOrder
+        })
+    }
+
 
     getCars() {
         CarDataService.getAll()
@@ -77,6 +90,29 @@ export default class Cars extends Component {
             currentIndex: index
         });
     }
+    sortCars(e) {
+       this.onChangeSortOrder();
+
+        if(this.state.sortOrder){
+            
+            const sorted = this.state.cars.sort((a,b) => a[e.target.value].toLowerCase().localeCompare(b[e.target.value].toLowerCase()));
+            this.setState({
+                cars: sorted,
+                arrow: "↓"
+            })
+        
+        } else {
+
+            const sorted = this.state.cars.sort((a,b) => b[e.target.value].toLowerCase().localeCompare(a[e.target.value].toLowerCase()));
+            this.setState({
+                cars: sorted,
+                arrow: "↑"
+            })
+
+        }
+        
+           
+    }
 
     searchCar() {
         const query = {
@@ -93,10 +129,12 @@ export default class Cars extends Component {
             .catch(e => {
                 console.log(e);
             });
+
+        
     }
 
     render() {
-        const { searchValue, searchKey, cars, currentCar, currentIndex, showSearch } = this.state;
+        const { searchValue, cars, currentIndex, showSearch } = this.state;
 
 
         return (
@@ -109,7 +147,7 @@ export default class Cars extends Component {
                         className="btn btn-light top-menu-buttons"
                         onClick={this.onChangeShowSearch}
                     >
-                        <img src={FilterIcon}/>
+                        <img src={FilterIcon} alt="filter cars"/>
                     </button>
 
                     <Link 
@@ -190,13 +228,31 @@ export default class Cars extends Component {
 
 
                     <div className="table-container">
-                    <table className="table table-hover">
+                    <table className="table table-hover table-striped">
 
                         <thead>
                             <tr>
                                 <th> # </th>
-                                <th> Maker </th>
-                                <th> Model </th>
+                                
+                                <th> Maker 
+                                    <button 
+                                        className="btn btn-light arrow-button" 
+                                        value="maker" 
+                                        onClick={this.sortCars}
+                                    > 
+                                    {this.state.arrow} 
+                                    </button>  
+                                </th>
+
+                                <th> Model 
+                                    <button 
+                                        className="btn btn-light arrow-button" 
+                                        value="model" 
+                                        onClick={this.sortCars}
+                                    >
+                                    {this.state.arrow}
+                                    </button> 
+                                </th>
                             </tr>
                         </thead>
 
@@ -208,10 +264,11 @@ export default class Cars extends Component {
 
                                     return (
 
-                                    <tbody>
+                                    <tbody key={index}>
 
                                         <tr
                                             onClick={() => this.setActiveCar(car, index)}
+                                            key={car.maker}
                                             /* className={index === currentIndex ? "selected-table-element" : ""}
  */
                                         >

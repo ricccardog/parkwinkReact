@@ -26,9 +26,7 @@ class CarDataService {
         return http.delete(`/cars/${_id}`);
     }
 
-    search(query) {
-        console.log(query)
-        
+    search(query) {        
         return http.get(`/cars`, {params: query});
     }
 }

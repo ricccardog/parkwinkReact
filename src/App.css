@@ -106,8 +106,8 @@
 .search-menu-container {
   background-color: #F5F5F5;
   border-radius: 3px;
-  border: 1px solid grey;
-  display: block;
+/*   border: 1px solid grey;
+ */  display: block;
   margin: 5px;
 }
 .entry {
@@ -135,4 +135,10 @@ table {
 
 .outer-container {
   z-index: 1;
+}
+
+.arrow-button {
+  margin-left: 10px;
+  color: black;
+  size: fixed;
 }
