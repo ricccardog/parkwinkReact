@@ -26,10 +26,10 @@ class CarDataService {
         return http.delete(`/cars/${_id}`);
     }
 
-    search(searchKey, searchValue) {
+    search(query) {
+        console.log(query)
         
-        
-        return http.get(`/cars?searchKey=${searchKey}&searchValue=${searchValue}`);
+        return http.get(`/cars`, {params: query});
     }
 }
 

@@ -78,7 +78,11 @@ export default class Cars extends Component {
     }
 
     searchCar() {
-        CarDataService.search(this.state.searchKey, this.state.searchValue)
+        const query = {
+            searchKey: this.state.searchKey,
+            searchValue: this.state.searchValue
+        };
+        CarDataService.search(query)
             .then(response => {
                 this.setState({
                     cars: response.data
