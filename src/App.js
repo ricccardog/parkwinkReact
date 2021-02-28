@@ -7,6 +7,10 @@ import Cars from "./components/cars.component";
 import CarDetail from "./components/car-detail.component";
 import CarEditor from "./components/car-editor.component";
 import CarIcon from "./assets/car.svg";
+import CustomerIcon from './assets/customer.svg';
+import CustomerEditor from './components/customer-editor.component';
+import CustomerDetail from './components/customer-detail.component';
+import Customers from './components/customers.component';
 
 class App extends Component {
   render() {
@@ -30,6 +34,11 @@ class App extends Component {
            Cars
           </Link>
 
+          <img src={CustomerIcon} className="icon" alt="customer icon"/>
+          <Link to={'/customers'}>
+            Customers
+          </Link>
+
         </div> 
 
         <div>
@@ -37,6 +46,9 @@ class App extends Component {
             <Route exact path={["/", "/cars"]} component={Cars} />
             <Route exact path="/careditor" component={CarEditor} />
             <Route path="/cars/:id" component={CarDetail} />
+            <Route exact path="/customers" component={Customers}/>
+            <Route exact path="/customereditor" component={CustomerEditor}/>
+            <Route path="/customers/:id" component={CustomerDetail}/>
           </Switch>
         </div>
 

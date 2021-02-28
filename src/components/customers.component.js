@@ -1,24 +1,24 @@
 import React, { Component } from "react";
-import CarDataService from "../services/car.service";
+import CustomerDataService from "../services/customer.service";
 import { Link } from "react-router-dom";
 import FilterIcon  from '../assets/filter.svg';
 
-export default class Cars extends Component {
+export default class Customers extends Component {
     constructor(props){
         super(props);
         this.onChangeSearchValue = this.onChangeSearchValue.bind(this);
         this.onChangeSearchKey = this.onChangeSearchKey.bind(this);
-        this.getCars = this.getCars.bind(this);
-        this.refreshCars = this.refreshCars.bind(this);
-        this.setActiveCar = this.setActiveCar.bind(this);
-        this.searchCar = this.searchCar.bind(this);
+        this.getCustomers = this.getCustomers.bind(this);
+        this.refreshCustomers = this.refreshCustomers.bind(this);
+        this.setActiveCustomer = this.setActiveCustomer.bind(this);
+        this.searchCustomer = this.searchCustomer.bind(this);
         this.onChangeShowSearch = this.onChangeShowSearch.bind(this);
-        this.sortCars = this.sortCars.bind(this);
+        this.sortCustomers = this.sortCustomers.bind(this);
         this.onChangeSortOrder = this.onChangeSortOrder.bind(this);
 
         this.state = {
-            cars: [],
-            currentCar: null,
+            customerss: [],
+            currentCustomer: null,
             currentIndex: -1,
             searchValue: "",
             searchKey: "",
@@ -29,7 +29,7 @@ export default class Cars extends Component {
     }
 
     componentDidMount() {
-        this.getCars();
+        this.getCustomers();
     }
 
     onChangeShowSearch() {
@@ -63,49 +63,49 @@ export default class Cars extends Component {
     }
 
 
-    getCars() {
-        CarDataService.getAll()
+    getCustomers() {
+        CustomerDataService.getAll()
             .then(response => {
                 this.setState({
-                    cars: response.data
+                    customers: response.data
                 });
-                console.log('getCars successfully called from cars.component');
+                console.log('getCustomers successfully called from Customers.component');
             })
             .catch(e => {
                 console.log(e);
             });
     }
 
-    refreshCars() {
-        this.getCars();
+    refreshCustomers() {
+        this.getCustomers();
         this.setState({
-            currentCar: null,
+            currentCustomer: null,
             currentIndex: -1
         });
     }
 
-    setActiveCar(car, index) {
+    setActiveCustomer(customer, index) {
         this.setState({
-            currentCar: car,
+            currentCustomer: customer,
             currentIndex: index
         });
     }
-    sortCars(e) {
+    sortCustomers(e) {
        this.onChangeSortOrder();
 
         if(this.state.sortOrder){
             
-            const sorted = this.state.cars.sort((a,b) => a[e.target.value].toLowerCase().localeCompare(b[e.target.value].toLowerCase()));
+            const sorted = this.state.customers.sort((a,b) => a[e.target.value].toLowerCase().localeCompare(b[e.target.value].toLowerCase()));
             this.setState({
-                cars: sorted,
+                customers: sorted,
                 arrow: "↓"
             })
         
         } else {
 
-            const sorted = this.state.cars.sort((a,b) => b[e.target.value].toLowerCase().localeCompare(a[e.target.value].toLowerCase()));
+            const sorted = this.state.customers.sort((a,b) => b[e.target.value].toLowerCase().localeCompare(a[e.target.value].toLowerCase()));
             this.setState({
-                cars: sorted,
+                customers: sorted,
                 arrow: "↑"
             })
 
@@ -114,17 +114,17 @@ export default class Cars extends Component {
            
     }
 
-    searchCar() {
+    searchCustomer() {
         const query = {
             searchKey: this.state.searchKey,
             searchValue: this.state.searchValue
         };
-        CarDataService.search(query)
+        CustomerDataService.search(query)
             .then(response => {
                 this.setState({
-                    cars: response.data
+                    customers: response.data
                 });
-                console.log('car searched');
+                console.log('customer searched');
             })
             .catch(e => {
                 console.log(e);
@@ -134,7 +134,7 @@ export default class Cars extends Component {
     }
 
     render() {
-        const { searchValue, cars, currentIndex, showSearch } = this.state;
+        const { searchValue, customers, currentIndex, showSearch } = this.state;
 
 
         return (
@@ -148,11 +148,11 @@ export default class Cars extends Component {
                         className="btn btn-light top-menu-buttons"
                         onClick={this.onChangeShowSearch}
                     >
-                        <img src={FilterIcon} alt="filter cars"/>
+                        <img src={FilterIcon} alt="filter customers"/>
                     </button>
 
                     <Link 
-                        to={"/careditor"}
+                        to={"/customereditor"}
                     >
                         <button
                             type="button"
@@ -181,8 +181,10 @@ export default class Cars extends Component {
                                     value={this.state.searchKey}
                                     onChange={this.onChangeSearchKey}>
                                     <option value={null} hidden>Search Field </option>
-                                    <option value="maker">Maker</option>
-                                    <option value="model">Model</option>
+                                    <option value="name">Name</option>
+                                    <option value="surname">Surname</option>
+                                    <option value="email">E-mail</option>
+                                    <option value="drivingLicense">Driving License</option>
                                 </select>
                             </div>
 
@@ -205,7 +207,7 @@ export default class Cars extends Component {
                 <button
                             className="filter-button btn btn-outline-secondary"
                             type="button"
-                            onClick={this.searchCar}
+                            onClick={this.searchcustomer}
                         >
                             Filter
                         </button>
@@ -235,21 +237,21 @@ export default class Cars extends Component {
                             <tr>
                                 <th> # </th>
                                 
-                                <th> Maker 
+                                <th> Name 
                                     <button 
                                         className="btn btn-light arrow-button" 
-                                        value="maker" 
-                                        onClick={this.sortCars}
+                                        value="name" 
+                                        onClick={this.sortCustomers}
                                     > 
                                     {this.state.arrow} 
                                     </button>  
                                 </th>
 
-                                <th> Model 
+                                <th> Surname 
                                     <button 
                                         className="btn btn-light arrow-button" 
-                                        value="model" 
-                                        onClick={this.sortCars}
+                                        value="surname" 
+                                        onClick={this.sortCustomers}
                                     >
                                     {this.state.arrow}
                                     </button> 
@@ -259,26 +261,26 @@ export default class Cars extends Component {
 
                         
                         {       
-                            (cars.length > 0) && 
+                            (customers.length > 0) && 
 
-                                cars.map((car, index) => { 
+                                customers.map((customer, index) => { 
 
                                     return (
 
                                     <tbody key={index}>
 
                                         <tr
-                                            onClick={() => this.setActiveCar(car, index)}
-                                            key={car.maker}
+                                            onClick={() => this.setActiveCustomer(customer, index)}
+                                            key={customer.surname}
                                             /* className={index === currentIndex ? "selected-table-element" : ""}
  */
                                         >
-                                            <td> {cars.indexOf(car) +1 } </td>
-                                            <td> {car.maker} </td>
-                                            <td> {car.model} {index === currentIndex ? (
+                                            <td> {customers.indexOf(customer) +1 } </td>
+                                            <td> {customer.name} </td>
+                                            <td> {customer.surname} {index === currentIndex ? (
                                                 
                                                     <Link
-                                                        to={`/cars/${car._id}`}
+                                                        to={`/customers/${customer._id}`}
                                                         className="edit-popup"
                                                     >
                                                         <button className="btn btn-light btn-outline">
