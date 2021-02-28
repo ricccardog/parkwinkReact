@@ -6,6 +6,7 @@ import './App.css';
 import Cars from "./components/cars.component";
 import CarDetail from "./components/car-detail.component";
 import CarEditor from "./components/car-editor.component";
+import CarIcon from "./assets/car.svg";
 
 class App extends Component {
   render() {
@@ -19,14 +20,17 @@ class App extends Component {
             ParkWink
           </a>
           </h4>
+
+        </nav>
           
-          <h4>
-          <Link to={"/cars"} className="content-link">
+        <div className="sidebar">
+             
+          <img src={CarIcon} className="icon" alt="car icon"/>
+          <Link to={"/cars"}>
            Cars
           </Link>
-          </h4>
-          
-        </nav>
+
+        </div> 
 
         <div>
           <Switch>

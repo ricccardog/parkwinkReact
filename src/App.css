@@ -68,17 +68,6 @@
 .home-link:hover {
   text-decoration: none;
 }
-
-.content-link {
-  float: right;
-  margin-right: 5px;
-  color: black;
-  font-weight: bold;
-  font-family: Helvetica, sans-serif;
-}
-.content-link:hover {
-  text-decoration: none;
-}
 .navbar-container {
   text-align: right;
   border-radius: 3px;
@@ -88,6 +77,23 @@
   text-align: right;
   border: solid 1px #ADADAD;
   margin-right: 2px;   
+}
+.sidebar {
+  font-weight: bold;
+  color:black;
+}
+.sidebar a {
+  color: black;
+}
+.sidebar a:hover{
+  text-decoration: none;
+  background-color:rgb(211, 206, 206);
+}
+.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
 }
 /* SEARCH MENU STYLE */
 .filter-button {
@@ -141,4 +147,22 @@ table {
   margin-left: 10px;
   color: black;
   size: fixed;
+}
+
+/* CAR DETAIL STYLE */
+.detail-buttons {
+  text-align:right;
+  margin-right: 2px;
+}
+.detail-back-button {
+  float: left;
+  margin-right: 2px;
+}
+
+.detail-view-footer {
+  text-align: right;
+}
+
+.label {
+  font-weight: bold;
 }

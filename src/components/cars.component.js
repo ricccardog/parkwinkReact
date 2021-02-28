@@ -280,7 +280,7 @@ export default class Cars extends Component {
                                                         to={`/cars/${car._id}`}
                                                         className="edit-popup"
                                                     >
-                                                        <button className="btn btn-primary btn-outline">
+                                                        <button className="btn btn-light btn-outline">
                                                             Edit
                                                         </button>
                                                         

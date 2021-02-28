@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import CarDataService from "../services/car.service";
 
 export default class CarDetail extends Component {
@@ -94,27 +95,34 @@ export default class CarDetail extends Component {
     }
 
     updateCar() {
+        if(window.confirm(`Are you sure you want to update this car?`)){
         CarDataService.update(
             this.state.currentCar._id,
             this.state.currentCar
         )
             .then(response => {
                 console.log('Car updated in car-detail')
-                this.setState({
-                    message: "Car Updated Successfully"
-                });
+                window.alert('Car successfully updated!')
             })
             .catch( e => {
                 console.log(e);
             });
+        }else{
+            console.log('No update confirmation received from user')
+        }
     }
 
     deleteCar() {
+        if(window.confirm(`Are you sure you want to delete this car?`)){
         CarDataService.delete(this.state.currentCar._id)
             .then(response => {
                 console.log('Car deleted in car-detail')
                 this.props.history.push('/cars')
+                window.alert('Car successfully deleted!')
             });
+        } else {
+            console.log('No deletion confirmation received from user')
+        }
     }
 
     render() {
@@ -128,12 +136,12 @@ export default class CarDetail extends Component {
 
                     <div className="edit-form">
                         
-                        <h4>Car</h4>
+                        <h4><strong>{currentCar.maker} {currentCar.model}</strong> details </h4>
                         
                         <form>
                             
                             <div className="form-group">
-                                <label htmlFor="maker">Maker</label>
+                                <label htmlFor="maker" className="label">Maker</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -144,7 +152,7 @@ export default class CarDetail extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="model">Model</label>
+                                <label htmlFor="model" className="label">Model</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -155,7 +163,7 @@ export default class CarDetail extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="price">Price</label>
+                                <label htmlFor="price" className="label">Price</label>
                                 <input
                                     type="number"
                                     className="form-control"
@@ -166,7 +174,7 @@ export default class CarDetail extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="creationDate">Creation Date</label>
+                                <label htmlFor="creationDate" className="label">Creation Date</label>
                                 <input
                                     type="date"
                                     className="form-control"
@@ -176,8 +184,19 @@ export default class CarDetail extends Component {
                                 />
                             </div>
                         </form>
+                        <div className="detail-view-footer">
+                            <Link
+                                to="/cars"
+                            >
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary detail-back-button"
+                                >
+                                Back    
+                                </button>
+                            </Link>
                             <button
-                                className="badge badge-danger mr-2"
+                                className="btn btn-danger detail-buttons"
                                 onClick={this.deleteCar}
                             >
                                 Delete Car
@@ -185,13 +204,13 @@ export default class CarDetail extends Component {
 
                             <button
                                 type="submit"
-                                className="badge badge-success"
+                                className="btn btn-success detail-buttons"
                                 onClick={this.updateCar}
                             >
                                 Update Car
                             </button>
-                            <p>{this.state.message}</p>
-                        
+                            
+                        </div>
                     </div>
 
                 ) : (
