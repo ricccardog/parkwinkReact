@@ -86,7 +86,7 @@ export default class Rentals extends Component {
                     }
 
                     if(response.data[element].car != null){
-                        response.data[element].carDisplay = `${response.data[element].customer.maker} ${response.data[element].customer.model}`;
+                        response.data[element].carDisplay = `${response.data[element].car.maker} ${response.data[element].car.model}`;
                     } else {
                         response.data[element].carDisplay = 'Missing Car'
                     }
@@ -114,7 +114,6 @@ export default class Rentals extends Component {
             .catch(e => {
                 console.log(e);
             });
-        console.log('this.state.cars')
     }
 
     getCustomers() {

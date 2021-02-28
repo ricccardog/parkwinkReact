@@ -4,6 +4,7 @@ class RentalDataService {
     getAll() {
         return http.get("/rentals")
             
+            
     }
 
     get(_id) {

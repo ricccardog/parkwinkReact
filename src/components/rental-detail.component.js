@@ -107,7 +107,8 @@ export default class RentalDetail extends Component {
     getRental(_id) {
         RentalDataService.get(_id)
             .then(response => { 
-                console.log('fetched data', response)
+                if(response.data.car === null) response.data.car = 'Missing Car';
+                if(response.data.customer === null) response.data.customer = 'MIssing Customer';
                 this.setState({
                     currentRental: response.data
                 });
@@ -130,7 +131,6 @@ export default class RentalDetail extends Component {
             .catch(e => {
                 console.log(e);
             });
-        console.log('this.state.cars')
     }
 
     getCustomers() {
@@ -219,7 +219,7 @@ export default class RentalDetail extends Component {
                                     value={currentRental.car}
                                     onChange={this.onChangeCar}
                                 >
-                                    <option hidden> {currentRental.car === null ? 'Pick a Car' : (currentRental.car.maker, currentRental.car.model)}</option>
+                                    <option hidden> {currentRental.car ? (currentRental.car.maker, currentRental.car.model) : "Pick a Car"}</option>
                                     {cars.map(car => 
                                         <option value={car._id} key={car._id}>{car.maker}{car.model}</option>
                                         )}
