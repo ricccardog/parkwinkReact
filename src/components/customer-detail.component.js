@@ -205,7 +205,7 @@ export default class CustomerDetail extends Component {
                                     className="form-control"
                                     id="birthDate"
                                     value={currentCustomer.birthDate}
-                                    onChange={this.onChangebirthDate}
+                                    onChange={this.onChangeBirthDate}
                                 />
                             </div>
                         </form>
@@ -224,7 +224,7 @@ export default class CustomerDetail extends Component {
                                 className="btn btn-danger detail-buttons"
                                 onClick={this.deleteCustomer}
                             >
-                                Delete Customer
+                                Delete
                             </button>
 
                             <button
@@ -232,7 +232,7 @@ export default class CustomerDetail extends Component {
                                 className="btn btn-success detail-buttons"
                                 onClick={this.updateCustomer}
                             >
-                                Update Customer
+                                Update
                             </button>
                             
                         </div>

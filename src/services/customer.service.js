@@ -8,7 +8,7 @@ class CustomerDataService {
     get(_id) {
         return http.get(`/customers/${_id}`)
             .then(response => {
-                response.data.creationDate = new Date(response.data.creationDate).toLocaleDateString('en-Ca');
+                response.data.birthDate = new Date(response.data.birthDate).toLocaleDateString('en-Ca');
                 return response
             });
             

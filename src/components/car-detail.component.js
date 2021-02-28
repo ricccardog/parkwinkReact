@@ -199,7 +199,7 @@ export default class CarDetail extends Component {
                                 className="btn btn-danger detail-buttons"
                                 onClick={this.deleteCar}
                             >
-                                Delete Car
+                                Delete
                             </button>
 
                             <button
@@ -207,7 +207,7 @@ export default class CarDetail extends Component {
                                 className="btn btn-success detail-buttons"
                                 onClick={this.updateCar}
                             >
-                                Update Car
+                                Update
                             </button>
                             
                         </div>

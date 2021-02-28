@@ -17,7 +17,7 @@ export default class Customers extends Component {
         this.onChangeSortOrder = this.onChangeSortOrder.bind(this);
 
         this.state = {
-            customerss: [],
+            customers: [],
             currentCustomer: null,
             currentIndex: -1,
             searchValue: "",

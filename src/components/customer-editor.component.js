@@ -128,7 +128,7 @@ export default class CustomerEditor extends Component {
                             id="surname"
                             required
                             value={this.state.surname}
-                            onChange={this.onChangesurname}
+                            onChange={this.onChangeSurname}
                             name="surname"
                         />
                     </div>
