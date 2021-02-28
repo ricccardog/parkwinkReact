@@ -76,12 +76,19 @@ export default class Rentals extends Component {
     getRentals() {
         RentalDataService.getAll()
             .then(response => {
+                for(let element in response.data){
+                    if(response.data[element].customer!= null){
+                   response.data[element].customerDisplay = `${response.data[element].customer.name} ${response.data[element].customer.surname}`;
+                    } else {
+                        response.data[element].customerDisplay = 'Missing Customer'
+                    }
+                }
+               
                 this.setState({
                     rentals: response.data
                     
                 });
                 console.log('getRentals successfully called from rentals.component');
-                console.log('FETCHED DATA', response.data)
             })
             .catch(e => {
                 console.log(e);
@@ -173,7 +180,7 @@ export default class Rentals extends Component {
     }
 
     render() {
-        const { searchValue, rentals, currentIndex, showSearch, cars, customers } = this.state;
+        const { rentals, currentIndex, showSearch, cars, customers } = this.state;
 
 
         return (
@@ -286,26 +293,37 @@ export default class Rentals extends Component {
                         <thead>
                             <tr>
                                 <th> # </th>
-                                
-                                <th> Maker 
+
+                                <th> Customer
                                     <button 
                                         className="btn btn-light arrow-button" 
-                                        value="maker" 
+                                        value="customerId" 
+                                        onClick={this.sortRentals}
+                                    >
+                                    {this.state.arrow}
+                                    </button> 
+                                </th>
+                                
+                                <th> Start Date 
+                                    <button 
+                                        className="btn btn-light arrow-button" 
+                                        value="startDate" 
                                         onClick={this.sortRentals}
                                     > 
                                     {this.state.arrow} 
                                     </button>  
                                 </th>
 
-                                <th> Model 
+                                <th> End Date
                                     <button 
                                         className="btn btn-light arrow-button" 
-                                        value="model" 
+                                        value="endDate" 
                                         onClick={this.sortRentals}
                                     >
                                     {this.state.arrow}
                                     </button> 
                                 </th>
+                                
                             </tr>
                         </thead>
 
@@ -326,8 +344,10 @@ export default class Rentals extends Component {
  */
                                         >
                                             <td> {rentals.indexOf(rental) +1 } </td>
-                                            <td> {rental.startDate} {rental.endDate} </td>
-                                            <td> {index === currentIndex ? (
+                                            <td> {rental.customerDisplay} </td>
+                                            <td> {rental.startDate} </td>
+                                            <td> {rental.endDate}
+                                             {index === currentIndex ? (
                                                 
                                                     <Link
                                                         to={`/rentals/${rental._id}`}
@@ -337,7 +357,8 @@ export default class Rentals extends Component {
                                                             Edit
                                                         </button>
                                                         
-                                                    </Link>): ""}</td>
+                                                    </Link>): ""}
+                                            </td>
                                             
                                         
                                         </tr>

@@ -2,7 +2,8 @@ import http from "../http-common";
 
 class RentalDataService {
     getAll() {
-        return http.get("/rentals");
+        return http.get("/rentals")
+            
     }
 
     get(_id) {
