@@ -8,15 +8,18 @@ import CarDetail from "./components/car-detail.component";
 import CarEditor from "./components/car-editor.component";
 import CarIcon from "./assets/car.svg";
 import CustomerIcon from './assets/customer.svg';
+import RentalIcon from './assets/rental.svg';
 import CustomerEditor from './components/customer-editor.component';
 import CustomerDetail from './components/customer-detail.component';
 import Customers from './components/customers.component';
+import Rentals from './components/rentals.component';
 
 class App extends Component {
   render() {
     return (
       <div> {/* outer container */}
 
+      
         <nav className="topNavBar">
         
           <h4>
@@ -26,7 +29,7 @@ class App extends Component {
           </h4>
 
         </nav>
-          
+        
         <div className="sidebar">
              
           <img src={CarIcon} className="icon" alt="car icon"/>
@@ -39,16 +42,22 @@ class App extends Component {
             Customers
           </Link>
 
+          <img src={RentalIcon} className="icon" alt="rental icon"/>
+          <Link to={'/rentals'}>
+            Rentals
+          </Link>
+
         </div> 
 
-        <div>
+        <div className="app-content">
           <Switch>
-            <Route exact path={["/", "/cars"]} component={Cars} />
+            <Route exact path="/cars" component={Cars} />
             <Route exact path="/careditor" component={CarEditor} />
             <Route path="/cars/:id" component={CarDetail} />
             <Route exact path="/customers" component={Customers}/>
             <Route exact path="/customereditor" component={CustomerEditor}/>
             <Route path="/customers/:id" component={CustomerDetail}/>
+            <Route exact path="/rentals" component={Rentals} />
           </Switch>
         </div>
 
