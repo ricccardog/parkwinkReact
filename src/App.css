@@ -148,6 +148,7 @@ table {
 
 .arrow-button {
   margin-left: 10px;
+  border-radius: 50%;
   color: black;
   size: fixed;
 }

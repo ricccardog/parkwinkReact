@@ -24,6 +24,7 @@ export default class Cars extends Component {
             searchKey: "",
             showSearch: false,
             sortOrder: false,
+            sortValue: '',
             arrow: "-"
         };
     }
@@ -98,6 +99,7 @@ export default class Cars extends Component {
             const sorted = this.state.cars.sort((a,b) => a[e.target.value].toLowerCase().localeCompare(b[e.target.value].toLowerCase()));
             this.setState({
                 cars: sorted,
+                sortValue: e.target.value,
                 arrow: "↓"
             })
         
@@ -106,6 +108,7 @@ export default class Cars extends Component {
             const sorted = this.state.cars.sort((a,b) => b[e.target.value].toLowerCase().localeCompare(a[e.target.value].toLowerCase()));
             this.setState({
                 cars: sorted,
+                sortValue: e.target.value,
                 arrow: "↑"
             })
 
@@ -241,7 +244,7 @@ export default class Cars extends Component {
                                         value="maker" 
                                         onClick={this.sortCars}
                                     > 
-                                    {this.state.arrow} 
+                                    {this.state.sortValue === "maker" ? this.state.arrow : ' - '} 
                                     </button>  
                                 </th>
 
@@ -251,7 +254,7 @@ export default class Cars extends Component {
                                         value="model" 
                                         onClick={this.sortCars}
                                     >
-                                    {this.state.arrow}
+                                    {this.state.sortValue === "model" ? this.state.arrow : ' - '}
                                     </button> 
                                 </th>
                             </tr>

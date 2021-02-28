@@ -30,6 +30,7 @@ export default class Rentals extends Component {
             searchKey: "",
             showSearch: false,
             sortOrder: false,
+            sortValue: "",
             arrow: "-"
         };
     }
@@ -77,10 +78,17 @@ export default class Rentals extends Component {
         RentalDataService.getAll()
             .then(response => {
                 for(let element in response.data){
+
                     if(response.data[element].customer!= null){
-                   response.data[element].customerDisplay = `${response.data[element].customer.name} ${response.data[element].customer.surname}`;
+                        response.data[element].customerDisplay = `${response.data[element].customer.name} ${response.data[element].customer.surname}`;
                     } else {
                         response.data[element].customerDisplay = 'Missing Customer'
+                    }
+
+                    if(response.data[element].car != null){
+                        response.data[element].carDisplay = `${response.data[element].customer.maker} ${response.data[element].customer.model}`;
+                    } else {
+                        response.data[element].carDisplay = 'Missing Car'
                     }
                 }
                
@@ -144,6 +152,7 @@ export default class Rentals extends Component {
             const sorted = this.state.rentals.sort((a,b) => a[e.target.value].toLowerCase().localeCompare(b[e.target.value].toLowerCase()));
             this.setState({
                 rentals: sorted,
+                sortValue: e.target.value,
                 arrow: "↓"
             })
         
@@ -152,6 +161,7 @@ export default class Rentals extends Component {
             const sorted = this.state.rentals.sort((a,b) => b[e.target.value].toLowerCase().localeCompare(a[e.target.value].toLowerCase()));
             this.setState({
                 rentals: sorted,
+                sortValue: e.target.value,
                 arrow: "↑"
             })
 
@@ -295,14 +305,12 @@ export default class Rentals extends Component {
                                 <th> # </th>
 
                                 <th> Customer
-                                    <button 
-                                        className="btn btn-light arrow-button" 
-                                        value="customerId" 
-                                        onClick={this.sortRentals}
-                                    >
-                                    {this.state.arrow}
-                                    </button> 
+                                     
                                 </th>
+
+                                <th> Car
+                                </th>
+
                                 
                                 <th> Start Date 
                                     <button 
@@ -310,7 +318,7 @@ export default class Rentals extends Component {
                                         value="startDate" 
                                         onClick={this.sortRentals}
                                     > 
-                                    {this.state.arrow} 
+                                    { this.state.sortValue === "startDate" ? this.state.arrow : " - " } 
                                     </button>  
                                 </th>
 
@@ -320,7 +328,7 @@ export default class Rentals extends Component {
                                         value="endDate" 
                                         onClick={this.sortRentals}
                                     >
-                                    {this.state.arrow}
+                                    {this.state.sortValue === "endDate" ? this.state.arrow : " - "}
                                     </button> 
                                 </th>
                                 
@@ -345,6 +353,7 @@ export default class Rentals extends Component {
                                         >
                                             <td> {rentals.indexOf(rental) +1 } </td>
                                             <td> {rental.customerDisplay} </td>
+                                            <td> {rental.carDisplay} </td>
                                             <td> {rental.startDate} </td>
                                             <td> {rental.endDate}
                                              {index === currentIndex ? (

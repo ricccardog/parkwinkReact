@@ -24,6 +24,7 @@ export default class Customers extends Component {
             searchKey: "",
             showSearch: false,
             sortOrder: false,
+            sortValue: "",
             arrow: "-"
         };
     }
@@ -98,6 +99,7 @@ export default class Customers extends Component {
             const sorted = this.state.customers.sort((a,b) => a[e.target.value].toLowerCase().localeCompare(b[e.target.value].toLowerCase()));
             this.setState({
                 customers: sorted,
+                sortValue: e.target.value,
                 arrow: "↓"
             })
         
@@ -106,6 +108,7 @@ export default class Customers extends Component {
             const sorted = this.state.customers.sort((a,b) => b[e.target.value].toLowerCase().localeCompare(a[e.target.value].toLowerCase()));
             this.setState({
                 customers: sorted,
+                sortValue: e.target.value,
                 arrow: "↑"
             })
 
@@ -243,7 +246,7 @@ export default class Customers extends Component {
                                         value="name" 
                                         onClick={this.sortCustomers}
                                     > 
-                                    {this.state.arrow} 
+                                    {this.state.sortValue === "name" ? this.state.arrow : ' - '} 
                                     </button>  
                                 </th>
 
@@ -253,7 +256,7 @@ export default class Customers extends Component {
                                         value="surname" 
                                         onClick={this.sortCustomers}
                                     >
-                                    {this.state.arrow}
+                                    {this.state.sortValue === "surname" ? this.state.arrow : ' - '}
                                     </button> 
                                 </th>
                             </tr>
