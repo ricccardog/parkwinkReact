@@ -201,7 +201,7 @@ export default class RentalDetail extends Component {
                                     value={currentRental.customer}
                                     onChange={this.onChangeCustomer}
                                 >
-                                    <option hidden> {currentRental.customer === null ? 'Pick a Customer' : (currentRental.customer.name, currentRental.customer.surname)}</option>
+                                    <option hidden> {currentRental.customer ? (`${currentRental.customer.name} ${currentRental.customer.surname}`) : "Pick a Car"}</option>
                                     {customers.map(customer => 
                                         <option value={customer._id} key={customer._id}>{customer.name}{customer.surname}</option>
                                         )}
@@ -219,7 +219,7 @@ export default class RentalDetail extends Component {
                                     value={currentRental.car}
                                     onChange={this.onChangeCar}
                                 >
-                                    <option hidden> {currentRental.car ? (currentRental.car.maker, currentRental.car.model) : "Pick a Car"}</option>
+                                    <option hidden> {currentRental.car ? `${currentRental.car.maker} ${currentRental.car.model}` : "Pick a Car"}</option>
                                     {cars.map(car => 
                                         <option value={car._id} key={car._id}>{car.maker}{car.model}</option>
                                         )}

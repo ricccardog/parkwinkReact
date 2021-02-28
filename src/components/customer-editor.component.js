@@ -100,7 +100,7 @@ export default class CustomerEditor extends Component {
 
                 <div>
                     <h4>Customer Submitted</h4>
-                    <button onClick={this.newCustomer}>
+                    <button className="btn btn-success" onClick={this.newCustomer}>
                         Add Customer
                     </button>
                 </div>

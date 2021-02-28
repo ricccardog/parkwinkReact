@@ -91,7 +91,7 @@ export default class CarEditor extends Component {
 
                 <div>
                     <h4>Car Submitted</h4>
-                    <button onClick={this.newCar}>
+                    <button className="btn btn-success" onClick={this.newCar}>
                         Add Car
                     </button>
                 </div>

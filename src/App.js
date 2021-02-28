@@ -14,6 +14,7 @@ import CustomerDetail from './components/customer-detail.component';
 import Customers from './components/customers.component';
 import Rentals from './components/rentals.component';
 import RentalDetail from './components/rental-detail.component';
+import RentalEditor from './components/rental-editor.component';
 
 class App extends Component {
   render() {
@@ -60,6 +61,7 @@ class App extends Component {
             <Route path="/customers/:id" component={CustomerDetail}/>
             <Route exact path="/rentals" component={Rentals} />
             <Route path="/rentals/:id" component={RentalDetail} />
+            <Route exact path="/rentaleditor" component={RentalEditor}/>
           </Switch>
         </div>
 
