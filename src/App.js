@@ -13,6 +13,7 @@ import CustomerEditor from './components/customer-editor.component';
 import CustomerDetail from './components/customer-detail.component';
 import Customers from './components/customers.component';
 import Rentals from './components/rentals.component';
+import RentalDetail from './components/rental-detail.component';
 
 class App extends Component {
   render() {
@@ -58,6 +59,7 @@ class App extends Component {
             <Route exact path="/customereditor" component={CustomerEditor}/>
             <Route path="/customers/:id" component={CustomerDetail}/>
             <Route exact path="/rentals" component={Rentals} />
+            <Route path="/rentals/:id" component={RentalDetail} />
           </Switch>
         </div>
 
