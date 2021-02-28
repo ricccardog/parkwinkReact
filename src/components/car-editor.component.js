@@ -84,6 +84,9 @@ export default class CarEditor extends Component {
         return (
             <div> {/* constainer div */}
 
+
+            <div className="edit-form">
+            <h4> Add a Car </h4>
             {this.state.submitted ? (
 
                 <div>
@@ -148,13 +151,15 @@ export default class CarEditor extends Component {
                         />
                     </div>
 
+                    <div className="detail-view-footer">
                     <button onClick={this.saveCar} className="btn btn-success">
                         Submit
                     </button>
+                    </div>
                 </div>
                 
             ) }
-
+            </div>
             </div>
         );
     }

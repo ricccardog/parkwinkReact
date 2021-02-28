@@ -94,7 +94,8 @@ export default class CustomerEditor extends Component {
     render(){
         return (
             <div> {/* constainer div */}
-
+            <div className="edit-form">
+            <h4>Add a Customer</h4>
             {this.state.submitted ? (
 
                 <div>
@@ -172,13 +173,15 @@ export default class CustomerEditor extends Component {
                         />
                     </div>
 
+                    <div className="detail-view-footer">
                     <button onClick={this.saveCustomer} className="btn btn-success">
                         Submit
                     </button>
+                    </div>
                 </div>
                 
             ) }
-
+            </div>
             </div>
         );
     }
