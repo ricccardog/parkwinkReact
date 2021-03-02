@@ -97,7 +97,6 @@ export default class Cars extends Component {
         this.setState({
             pageNo: pageNo 
         })
-
         this.onChangeSliceParams();
         console.log(this.state.pageNo) 
     }
@@ -116,7 +115,7 @@ export default class Cars extends Component {
                 const numberOfPages = Math.ceil(response.data / this.state.limit);
                 this.setState({
                     collectionSize: response.data,
-                    //numberOfPages: numberOfPages
+                    numberOfPages: numberOfPages
                 });
             console.log('collection size fetched')
             })
@@ -372,8 +371,9 @@ export default class Cars extends Component {
                 </div>
                       {limit} limit value {pageNo} page number  
 
+                       
                            <Pagination >
-                            <PageItem onClick={this.onPageChange} value="2"> TUA MADRE </PageItem>
+                            <PageItem onClick={this.onPageChange} value={this.state.pageNo}> {this.state.pageNo} </PageItem>
 
                            </Pagination>
             </div>
