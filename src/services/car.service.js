@@ -14,6 +14,10 @@ class CarDataService {
             
     }
 
+    getCollectionSize() {
+        return http.get(`/countCars`)
+    }
+
     create(data) {
         return http.post("/cars", data);
     }

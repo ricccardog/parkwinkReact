@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import CarDataService from "../services/car.service";
 import { Link } from "react-router-dom";
 import FilterIcon  from '../assets/filter.svg';
+import Pagination from 'react-bootstrap/Pagination';
+import PageItem from 'react-bootstrap/PageItem';
 
 export default class Cars extends Component {
     constructor(props){
@@ -9,15 +11,20 @@ export default class Cars extends Component {
         this.onChangeSearchValue = this.onChangeSearchValue.bind(this);
         this.onChangeSearchKey = this.onChangeSearchKey.bind(this);
         this.getCars = this.getCars.bind(this);
+        this.getCollectionSize = this.getCollectionSize.bind(this);
         this.refreshCars = this.refreshCars.bind(this);
         this.setActiveCar = this.setActiveCar.bind(this);
         this.searchCar = this.searchCar.bind(this);
         this.onChangeShowSearch = this.onChangeShowSearch.bind(this);
         this.sortCars = this.sortCars.bind(this);
         this.onChangeSortOrder = this.onChangeSortOrder.bind(this);
-
+        this.onChangeSliceParams = this.onChangeSliceParams.bind(this);
+        this.onPageChange = this.onPageChange.bind(this);
+        this.onChangeSize = this.onChangeSize.bind(this);
+        
         this.state = {
             cars: [],
+            collectionSize: 0,
             currentCar: null,
             currentIndex: -1,
             searchValue: "",
@@ -25,12 +32,20 @@ export default class Cars extends Component {
             showSearch: false,
             sortOrder: false,
             sortValue: '',
-            arrow: "-"
+            arrow: "-",
+            skip: 0,
+            limit: 6,
+            numberOfPages: 0,
+            pageNo: 1,
+            size: 6,
         };
     }
 
     componentDidMount() {
+        this.getCollectionSize();
+        this.onChangeSliceParams();
         this.getCars();
+            
     }
 
     onChangeShowSearch() {
@@ -60,9 +75,56 @@ export default class Cars extends Component {
         
         this.setState({
             sortOrder: sortOrder
+        });
+    }
+
+    onChangeSliceParams() {
+        
+        const skip = (this.state.pageNo - 1) * this.state.size;
+        
+        const limit = this.state.size * this.state.pageNo;
+        
+        this.setState({
+            skip: skip,
+            limit: limit
         })
     }
 
+   
+
+    onPageChange(e) {
+        const pageNo = e.currentTarget.getAttribute('value')
+        this.setState({
+            pageNo: pageNo 
+        })
+
+        this.onChangeSliceParams();
+        console.log(this.state.pageNo) 
+    }
+
+    onChangeSize(e) {
+        const size = e.target.value;
+
+        this.setState({
+            size: size
+        })
+    }
+
+    getCollectionSize() {
+        CarDataService.getCollectionSize()
+            .then(response => {
+                const numberOfPages = Math.ceil(response.data / this.state.limit);
+                this.setState({
+                    collectionSize: response.data,
+                    //numberOfPages: numberOfPages
+                });
+            console.log('collection size fetched')
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        
+    }
 
     getCars() {
         CarDataService.getAll()
@@ -75,6 +137,9 @@ export default class Cars extends Component {
             .catch(e => {
                 console.log(e);
             });
+        this.onChangeSliceParams();
+    
+        
     }
 
     refreshCars() {
@@ -137,7 +202,7 @@ export default class Cars extends Component {
     }
 
     render() {
-        const { searchValue, cars, currentIndex, showSearch } = this.state;
+        const { searchValue, cars, currentIndex, showSearch, skip, limit, collectionSize, size, pageNo } = this.state;
 
 
         return (
@@ -230,7 +295,6 @@ export default class Cars extends Component {
   
                    
 
-
                     <div className="table-container">
                     <table className="table table-hover table-striped">
 
@@ -273,8 +337,7 @@ export default class Cars extends Component {
                                         <tr
                                             onClick={() => this.setActiveCar(car, index)}
                                             key={car.maker}
-                                            /* className={index === currentIndex ? "selected-table-element" : ""}
- */
+   
                                         >
                                             <td> {cars.indexOf(car) +1 } </td>
                                             <td> {car.maker} </td>
@@ -298,7 +361,7 @@ export default class Cars extends Component {
                                     )
                                 }
                             
-                            ) 
+                            ).slice(skip, limit) 
                         
                         }
                            
@@ -306,10 +369,13 @@ export default class Cars extends Component {
                         
                     </table> 
                     </div>
-                    
                 </div>
+                      {limit} limit value {pageNo} page number  
 
-                
+                           <Pagination >
+                            <PageItem onClick={this.onPageChange} value="2"> TUA MADRE </PageItem>
+
+                           </Pagination>
             </div>
             </div>
         );
