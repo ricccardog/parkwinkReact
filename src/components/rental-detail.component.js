@@ -26,8 +26,8 @@ export default class RentalDetail extends Component {
                 car: "",
                 customer: "",
                 price: 0,
-                startDate: new Date(),
-                endDate: new Date()
+                startDate: new Date().toLocaleDateString('en-Ca'),
+                endDate: new Date().toLocaleDateString('en-Ca')
             },
             message: ""
         };

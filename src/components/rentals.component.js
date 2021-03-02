@@ -78,7 +78,12 @@ export default class Rentals extends Component {
         RentalDataService.getAll()
             .then(response => {
                 for(let element in response.data){
+                    const startDate = new Date(response.data[element].startDate).toLocaleDateString('en-Ca');
+                    const endDate = new Date(response.data[element].endDate).toLocaleDateString('en-Ca');
 
+                    response.data[element].startDate = startDate;
+                    response.data[element].endDate = endDate;
+                    
                     if(response.data[element].customer!= null){
                         response.data[element].customerDisplay = `${response.data[element].customer.name} ${response.data[element].customer.surname}`;
                     } else {
