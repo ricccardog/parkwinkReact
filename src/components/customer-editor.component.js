@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CustomerDataService from "../services/customer.service";
+import { Link } from 'react-router-dom';
 
 export default class CustomerEditor extends Component {
     constructor(props) {
@@ -174,6 +175,17 @@ export default class CustomerEditor extends Component {
                     </div>
 
                     <div className="detail-view-footer">
+                    <Link
+                        to="/customers"
+                    >
+                        <button
+                            type="button"
+                            className="btn btn-secondary detail-back-button"
+                        >
+                        Back    
+                        </button>
+                    </Link>
+
                     <button onClick={this.saveCustomer} className="btn btn-success">
                         Submit
                     </button>

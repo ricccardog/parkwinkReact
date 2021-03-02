@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CarDataService from "../services/car.service";
+import { Link } from 'react-router-dom';
 
 export default class CarEditor extends Component {
     constructor(props) {
@@ -152,9 +153,20 @@ export default class CarEditor extends Component {
                     </div>
 
                     <div className="detail-view-footer">
-                    <button onClick={this.saveCar} className="btn btn-success">
-                        Submit
-                    </button>
+                        <button onClick={this.saveCar} className="btn btn-success">
+                            Submit
+                        </button>
+
+                        <Link
+                            to="/cars"
+                        >
+                            <button
+                                type="button"
+                                className="btn btn-secondary detail-back-button"
+                            >
+                            Back    
+                            </button>
+                        </Link>
                     </div>
                 </div>
                 
